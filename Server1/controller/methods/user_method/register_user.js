@@ -15,7 +15,6 @@
             let output = await helper.userValidateHelper.uservalidation(requestObject);
             if (output == true) {
                 const output2 = await create_user(requestObject);
-                //const output2=await create_user(req.body);
                 if (output2 == true) {
                     res.status(201).send({  //created
                         //status: 201, //created

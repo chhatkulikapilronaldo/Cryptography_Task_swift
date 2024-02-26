@@ -57,26 +57,17 @@ const verifySignature = (data, signature, publicKey) => {
 
 const signMessage = (data, privateKey) => {
   try {
-    // Ensure data is a string or a buffer
+
     if (typeof data !== 'string' && !Buffer.isBuffer(data)) {
       throw new Error('Data must be a string or a buffer');
     }
-
-    // Create a signer with SHA256 algorithm
     const signer = crypto.createSign('sha256');
-
-    // Update the signer with the data to be signed
     signer.update(data);
-
-    // Sign the data with the private key
     const signature = signer.sign(privateKey, 'base64');
-
-    // Return the signature
     return signature;
   } catch (error) {
-    // Log and handle errors during signing
     console.error('Error signing message:', error.message);
-    return null; // Return null or handle error appropriately
+    return null;
   }
 };
 

@@ -3,8 +3,6 @@
 const loginUser = require("../../sql/Sql_user/login_user");
 
 (() => {
-  //const check_user = require("../../sql/Sql_user/login_user")
-
   module.exports = async (req, res, next) => {
     try {
       const obj = {

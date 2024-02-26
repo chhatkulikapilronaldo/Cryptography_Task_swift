@@ -28,48 +28,32 @@ const encryptMessage = (message, publicKey) => {
     if (typeof message !== 'string') {
       throw new Error('Message must be a string');
     }
-
-    // Create a buffer from the message
     const bufferMessage = Buffer.from(message, 'utf-8');
-
-    // Encrypt the message using public key
     const encrypted = crypto.publicEncrypt({
       key: publicKey,
       padding: crypto.constants.RSA_PKCS1_OAEP_PADDING,
       oaepHash: 'sha256',
     }, bufferMessage);
 
-    // Return the encrypted message
     return encrypted.toString('base64');
   } catch (error) {
-    // Log and handle errors during encryption
     console.error('Error encrypting message:', error.message);
-    return null; // Return null or handle error appropriately
+    return null;
   }
 };
 
 const signMessage = (data, privateKey) => {
   try {
-    // Ensure data is a string or a buffer
     if (typeof data !== 'string' && !Buffer.isBuffer(data)) {
       throw new Error('Data must be a string or a buffer');
     }
-
-    // Create a signer with SHA256 algorithm
     const signer = crypto.createSign('sha256');
-
-    // Update the signer with the data to be signed
     signer.update(data);
-
-    // Sign the data with the private key
     const signature = signer.sign(privateKey, 'base64');
-
-    // Return the signature
     return signature;
   } catch (error) {
-    // Log and handle errors during signing
     console.error('Error signing message:', error.message);
-    return null; // Return null or handle error appropriately
+    return null;
   }
 };
 

@@ -5,10 +5,7 @@ const JWT = require("jsonwebtoken");
 
 module.exports = async (call) => {
     try {
-        // Query the database to get user information by email
         const output = await helper.mysqlHelper.query(`SELECT * FROM users WHERE email='${call.email}'`);
-        
-        // Check if user with the provided email exists
         if (output[0].length === 0) {
             return "User not found";
         }
@@ -20,8 +17,7 @@ module.exports = async (call) => {
         const passwordMatch = await bcrypt.compare(call.password, hashedPassword);
 
         if (passwordMatch) {
-            // Creating token
-            const token = await JWT.sign({id: user.id}, process.env.JWT_SECRET, {
+            const token = await JWT.sign({ id: user.id }, process.env.JWT_SECRET, {
                 expiresIn: "5d",
             });
 
